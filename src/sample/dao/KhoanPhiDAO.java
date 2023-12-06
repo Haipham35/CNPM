@@ -13,44 +13,26 @@ import java.util.Optional;
  */
 public class KhoanPhiDAO implements DataAccessObject<KhoanPhi, Integer> {
     private final Connection connection;
-    private final String table_name;
-    
-    public enum TableType {
-        KHOANPHI,
-        KHOANPHICHUATHU
-    }
-    
     /**
      * Khởi tạo một đối tượng KhoanPhiDAO với kết nối cơ sở dữ liệu được cung cấp.
      *
      * @param connection Kết nối đến cơ sở dữ liệu.
-     * @param tableType Loại bảng.
      */
-    public KhoanPhiDAO(Connection connection, TableType tableType) {
+    public KhoanPhiDAO(Connection connection) {
         this.connection = connection;
-        if (tableType == TableType.KHOANPHI) {
-            table_name = "khoanphi";
-        } else {
-            table_name = "themkhoanphi";
-        }
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<KhoanPhi> getAll() {
+    public List<KhoanPhi> getAll() throws SQLException {
         List<KhoanPhi> danhSachKhoanPhi = new ArrayList<>();
-        try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM khoanphi");
-            statement.setString(1, table_name);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                KhoanPhi khoanphi = _get(resultSet);
-                danhSachKhoanPhi.add(khoanphi);
-            }
-        } catch (SQLException e) {
-        
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM khoanphi");
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            KhoanPhi khoanphi = _get(resultSet);
+            danhSachKhoanPhi.add(khoanphi);
         }
         return danhSachKhoanPhi;
     }
@@ -59,18 +41,13 @@ public class KhoanPhiDAO implements DataAccessObject<KhoanPhi, Integer> {
      * {@inheritDoc}
      */
     @Override
-    public Optional<KhoanPhi> get(Integer idPhi) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM khoanphi WHERE idPhi = ?");
-            statement.setString(1, table_name);
-            statement.setInt(2, idPhi);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                KhoanPhi khoanphi = _get(resultSet);
-                return Optional.of(khoanphi);
-            }
-        } catch (SQLException e) {
-        
+    public Optional<KhoanPhi> get(Integer idPhi) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM khoanphi WHERE idPhi = ?");
+        statement.setInt(1, idPhi);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            KhoanPhi khoanphi = _get(resultSet);
+            return Optional.of(khoanphi);
         }
         return Optional.empty();
         
@@ -80,55 +57,40 @@ public class KhoanPhiDAO implements DataAccessObject<KhoanPhi, Integer> {
      * {@inheritDoc}
      */
     @Override
-    public void save(@NotNull KhoanPhi khoanphi) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO khoanphi" +
-                    "(idPhi, kieuPhi, noiDungThuPhi, mucPhi, ngayTao, ngayKetThuc, tieuDeKhoanPhi " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)");
-            statement.setString(1, table_name);
-            _setValuesForStatement(khoanphi, statement, 3);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-        
-        }
+    public void save(@NotNull KhoanPhi khoanphi) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO khoanphi" +
+                " (idPhi, kieuPhi, noiDungThuPhi, mucPhi, ngayTao, ngayKetThuc, tieuDeKhoanPhi " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)");
+        _setValuesForStatement(khoanphi, statement, 1);
+        statement.executeUpdate();
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public void update(@NotNull KhoanPhi khoanphi) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE khoanphi SET" +
-                    "kieuPhi = ?, " +
-                    "noiDungPhi = ?, " +
-                    "mucPhi= ?, " +
-                    "ngayTao = ?, " +
-                    "ngayKetThuc = ?, " +
-                    "tieuDeKhoanPhi = ?, " +
-                    "WHERE idPhi = ?");
-            statement.setString(1, table_name);
-            int parameterIndex = _setValuesForStatement(khoanphi, statement, 2);
-            statement.setInt(parameterIndex, khoanphi.getIdPhi());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-        
-        }
+    public void update(@NotNull KhoanPhi khoanphi) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("UPDATE khoanphi SET" +
+                "kieuPhi = ?, " +
+                "noiDungThuPhi = ?, " +
+                "mucPhi= ?, " +
+                "ngayTao = ?, " +
+                "ngayKetThuc = ?, " +
+                "tieuDeKhoanPhi = ?, " +
+                "WHERE idPhi = ?");
+        int parameterIndex = _setValuesForStatement(khoanphi, statement, 1);
+        statement.setInt(parameterIndex, khoanphi.getIdPhi());
+        statement.executeUpdate();
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public void delete(@NotNull KhoanPhi khoanphi) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM ? WHERE idPhi = ?");
-            statement.setString(1, table_name);
-            statement.setInt(2, khoanphi.getIdPhi());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-        
-        }
+    public void delete(@NotNull KhoanPhi khoanphi) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM khoanphi WHERE idPhi = ?");
+        statement.setInt(1, khoanphi.getIdPhi());
+        statement.executeUpdate();
     }
     
     /**
@@ -142,7 +104,7 @@ public class KhoanPhiDAO implements DataAccessObject<KhoanPhi, Integer> {
         KhoanPhi khoanphi = new KhoanPhi();
         khoanphi.setIdPhi(resultSet.getInt("idPhi"));
         khoanphi.setKieuphi(resultSet.getString("kieuPhi"));
-        khoanphi.setNoidungphi(resultSet.getString("noiDungPhi"));
+        khoanphi.setNoidungphi(resultSet.getString("noiDungThuPhi"));
         khoanphi.setMucphi(resultSet.getInt("mucPhi"));
         khoanphi.setNgaytao(resultSet.getTimestamp("ngayTao").toLocalDateTime());
         khoanphi.setNgayketthuc(resultSet.getTimestamp("ngayKetThuc").toLocalDateTime());

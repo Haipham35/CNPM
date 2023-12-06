@@ -17,30 +17,34 @@ public class KhoanPhi {
     /**
      * Khởi tạo một đối tượng KhoanPhi mới.
      */
-    public KhoanPhi() {
-    }
+
     
     /**
      * Khởi tạo một đối tượng KhoanPhi với thông tin cung cấp.
      *
      * @param idPhi         ID của khoản phí.
      * @param kieuphi       Loại khoản phí.
-     * @param noidungohi    Nội dung của khoản phí.
+     * @param noidungphi    Nội dung của khoản phí.
      * @param mucphi        Mức phí.
      * @param ngayketthuc   Ngày kết thúc hiệu lực của khoản phí.
      * @param ngaytao       Ngày tạo khoản phí.
      * @param tieudephi     Tiêu đề của khoản phí.
      */
-    public KhoanPhi(int idPhi, String kieuphi, String noidungohi, int mucphi, LocalDateTime ngayketthuc, LocalDateTime ngaytao, String tieudephi) {
+    public KhoanPhi(int idPhi, String kieuphi, String noidungphi,int mucphi,  LocalDateTime ngayketthuc, LocalDateTime ngaytao, String tieudephi) {
         this.idPhi = idPhi;
         this.kieuphi = kieuphi;
-        this.noidungphi = noidungohi;
+        this.noidungphi = noidungphi;
         this.mucphi = mucphi;
         this.ngayketthuc = ngayketthuc;
         this.ngaytao = ngaytao;
         this.tieudephi = tieudephi;
     }
-    
+
+    public KhoanPhi() {
+
+    }
+
+
     /**
      * Lấy ID của khoản phí.
      *

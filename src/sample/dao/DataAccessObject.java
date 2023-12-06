@@ -2,6 +2,7 @@ package sample.dao;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,7 @@ public interface DataAccessObject<T, K> {
      *
      * @return Danh sách chứa tất cả các đối tượng.
      */
-    List<T> getAll();
+    List<T> getAll() throws SQLException;
     
     /**
      * Lấy một đối tượng từ cơ sở dữ liệu dựa trên khóa chính.
@@ -25,7 +26,7 @@ public interface DataAccessObject<T, K> {
      * @param id Khóa chính của đối tượng cần lấy.
      * @return Optional chứa đối tượng nếu tồn tại, hoặc Optional rỗng nếu không.
      */
-    Optional<T> get(K id);
+    Optional<T> get(K id) throws SQLException;
     
     /**
      * Lưu một đối tượng mới vào cơ sở dữ liệu.
@@ -33,7 +34,7 @@ public interface DataAccessObject<T, K> {
      * @param t Đối tượng cần lưu.
      * @throws IllegalArgumentException Nếu đối tượng đã tồn tại trong cơ sở dữ liệu.
      */
-    void save(@NotNull T t);
+    void save(@NotNull T t) throws SQLException;
     
     /**
      * Cập nhật thông tin của một đối tượng trong cơ sở dữ liệu.
@@ -41,7 +42,7 @@ public interface DataAccessObject<T, K> {
      * @param t Đối tượng cần cập nhật.
      * @throws IllegalArgumentException Nếu đối tượng không tồn tại trong cơ sở dữ liệu.
      */
-    void update(@NotNull T t);
+    void update(@NotNull T t) throws SQLException;
     
     /**
      * Xóa một đối tượng khỏi cơ sở dữ liệu.
@@ -49,5 +50,5 @@ public interface DataAccessObject<T, K> {
      * @param t Đối tượng cần xóa.
      * @throws IllegalArgumentException Nếu đối tượng không tồn tại trong cơ sở dữ liệu.
      */
-    void delete(@NotNull T t);
+    void delete(@NotNull T t) throws SQLException;
 }
