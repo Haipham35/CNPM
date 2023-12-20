@@ -17,7 +17,7 @@
          </font>
       </Label>
       <Label layoutX="88.0" layoutY="80.0" prefHeight="17.0" prefWidth="42.0" text="Id Phí:" />
-      <Label layoutX="85.0" layoutY="114.0" text="Mức phí:" />
+      <Label fx:id="mucphi" layoutX="85.0" layoutY="114.0" text="Mức phí:" />
       <Label layoutX="86.0" layoutY="153.0" text="Kiểu phí:" />
       <Label layoutX="55.0" layoutY="184.0" text="Tiêu đề:" />
       <Label layoutX="320.0" layoutY="90.0" text="Ngày bắt đầu:" />
@@ -28,10 +28,11 @@
       <Label fx:id="kieuphiLabel" layoutX="137.0" layoutY="154.0" text="Kiểu phí" />
       <Label fx:id="ngaybatdauLabel" layoutX="401.0" layoutY="90.0" text="Ngày bắt đầu" />
       <Label fx:id="ngayketthucLabel" layoutX="401.0" layoutY="138.0" text="Ngày kết thúc" />
-      <TextArea fx:id="noidungphi" layoutX="59.0" layoutY="248.0" prefHeight="72.0" prefWidth="475.0" />
-      <TextField fx:id="tieudephi" layoutX="58.0" layoutY="201.0" prefHeight="25.0" prefWidth="236.0" />
+      <TextArea fx:id="noidungphi" editable="false" layoutX="59.0" layoutY="248.0" prefHeight="72.0" prefWidth="475.0" />
+      <TextField fx:id="tieudephi" editable="false" layoutX="58.0" layoutY="201.0" prefHeight="25.0" prefWidth="236.0" />
       <Button layoutX="503.0" layoutY="349.0" mnemonicParsing="false" onAction="#switchToScene5" text="Chấp nhận" />
       <CheckBox fx:id="mycheckbox" layoutX="61.0" layoutY="326.0" mnemonicParsing="false" text="Tôi đồng ý nộp phí" />
       <Label fx:id="ktracheckbox" layoutX="411.0" layoutY="326.0" prefHeight="17.0" prefWidth="154.0" textFill="#ff0101" />
+      <TextField fx:id="sotien" layoutX="132.0" layoutY="110.0" prefHeight="25.0" prefWidth="108.0" />
    </children>
 </AnchorPane>

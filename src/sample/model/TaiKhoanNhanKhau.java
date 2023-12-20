@@ -7,6 +7,7 @@ public class TaiKhoanNhanKhau {
     private String tentaikhoan;
     private String pass;
     private String soCCCD;
+    private int soDuTaiKhoan;
 
     /**
      * Khởi tạo một đối tượng TaiKhoanNhanKhau mới với thông tin cung cấp.
@@ -14,11 +15,13 @@ public class TaiKhoanNhanKhau {
      * @param soCCCD       Số CCCD của nhân khẩu.
      * @param tentaikhoan  Tên tài khoản.
      * @param pass         Mật khẩu.
+     * @param soDuTaiKhoan Số dư của tài khoản đó
      */
-    public TaiKhoanNhanKhau(String soCCCD, String tentaikhoan, String pass) {
+    public TaiKhoanNhanKhau(String soCCCD, String tentaikhoan, String pass, int soDuTaiKhoan) {
         this.soCCCD = soCCCD;
         this.tentaikhoan = tentaikhoan;
         this.pass = pass;
+        this.soDuTaiKhoan = soDuTaiKhoan;
     }
 
     /**
@@ -73,5 +76,13 @@ public class TaiKhoanNhanKhau {
      */
     public void setTentaikhoan(String tentaikhoan) {
         this.tentaikhoan = tentaikhoan;
+    }
+
+    public int getSoDuTaiKhoan() {
+        return soDuTaiKhoan;
+    }
+
+    public void setSoDuTaiKhoan(int soDuTaiKhoan) {
+        this.soDuTaiKhoan = soDuTaiKhoan;
     }
 }

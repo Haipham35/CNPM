@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root type="javafx.scene.layout.VBox" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="74.5" prefWidth="250.0" style="-fx-background-color: fafafa; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="idPhi" text="ông a">
+         <VBox.margin>
+            <Insets left="15.0" right="15.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="idHoKhau" text="cccd">
+         <VBox.margin>
+            <Insets left="15.0" right="15.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="soTien" layoutX="10.0" layoutY="28.0" text="chủ hộ">
+         <VBox.margin>
+            <Insets left="15.0" right="15.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+   </children>
+</fx:root>

@@ -1,5 +1,6 @@
 package sample.dao;
 
+import javafx.util.Pair;
 import sample.model.DongPhi;
 import org.jetbrains.annotations.NotNull;
 
@@ -62,20 +63,51 @@ public class DongPhiDAO implements DataAccessObject<DongPhi, Integer> {
         return Optional.empty();
         
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
-    public void save(@NotNull DongPhi dongphi) {
+    public void save(@NotNull DongPhi dongPhi) throws SQLException {
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO dongphi" +
                     "(idPhi, idHoKhau,soTien, ngayDong) " +
                     "VALUES (?, ?, ?,?)");
-            _setValuesForStatement(dongphi, statement, 1);
+            _setValuesForStatement(dongPhi, statement, 1);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    public void save(int idPhi, int idHoKhau, LocalDateTime ngayDong, int soTien) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO dongphi" +
+                    "(idPhi, idHoKhau,soTien, ngayDong) " +
+                    "VALUES (?, ?, ?,?)");
+            statement.setInt(1,idPhi);
+            statement.setInt(2,idHoKhau);
+            statement.setTimestamp(4, Timestamp.valueOf(ngayDong));
+            statement.setInt(3,soTien);
             statement.executeUpdate();
         } catch (SQLException e) {
         
+        }
+    }
+    public void save1(int idPhi, int idHoKhau, LocalDateTime ngayDong, String soTien) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO dongphi" +
+                    "(idPhi, idHoKhau,soTien, ngayDong) " +
+                    "VALUES (?, ?, ?,?)");
+            statement.setInt(1,idPhi);
+            statement.setInt(2,idHoKhau);
+            statement.setTimestamp(4, Timestamp.valueOf(ngayDong));
+            statement.setString(3,soTien);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+
         }
     }
     

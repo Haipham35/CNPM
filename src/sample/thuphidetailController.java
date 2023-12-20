@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 import sample.model.KhoanPhi;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class thuphidetailController {
     private Stage stage;
@@ -40,13 +38,28 @@ public class thuphidetailController {
     CheckBox mycheckbox;
     @FXML
     Label ktracheckbox;
+    @FXML
+    Label mucphi;
+    @FXML
+    TextField sotien;
+
+    public KhoanPhi kp;
     public void setKhoanPhi(KhoanPhi khoanPhi){
 
-
+        kp = khoanPhi;
+        if(khoanPhi.getMucphi() == 0) {
+            sotien.setVisible(true);
+            mucphiLabel.setVisible(false);
+            mucphi.setText("Số tiền:");
+        }else {
+            sotien.setVisible(false);
+            mucphiLabel.setVisible(true);
+            mucphi.setText("Mức phi:");
+        }
         idphiLabel.setText(String.valueOf(khoanPhi.getIdPhi()));
         mucphiLabel.setText(String.valueOf(khoanPhi.getMucphi()));
         tieudephi.setText(khoanPhi.getTieudephi());
-
+        kieuphiLabel.setText(khoanPhi.getKieuphi());
         noidungphi.setText(khoanPhi.getNoidungphi());
         ngaybatdauLabel.setText(String.valueOf(khoanPhi.getNgaytao()));
         ngayketthucLabel.setText(String.valueOf(khoanPhi.getNgayketthuc()));
@@ -65,18 +78,41 @@ public class thuphidetailController {
 
     }
     public void switchToScene5(ActionEvent event) throws IOException {
-        if (mycheckbox.isSelected()) {
-            root = FXMLLoader.load(getClass().getResource("Scrence5.fxml"));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }else {
-            ktracheckbox.setText("Bạn chưa đồng ý nộp phí");
+        if (kp.getMucphi() == 0) {
+
+            if (sotien.getText().isEmpty()) {
+                ktracheckbox.setText("Chua nhap so tien");
+                return;
+            } else if (sotien.getText().equals("0")) {
+                ktracheckbox.setText("So tien >0");
+            }
+            return;}
+//            }else {
+//                if() {ktra cos ky hieu ko
+//
+//
+//                } else {
+//                    Optional<TaiKhoanNhanKhau>
+//                    if (tk.getsodu() < sotian.gettext()) {
+//                        ktracheckbox.setText("sodutkkod0");
+//                        return;
+//                    }
+//                }
+//            }
+//        }
+
+          if (mycheckbox.isSelected()) {
+                root = FXMLLoader.load(getClass().getResource("User/Scrence5.fxml"));
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+          } else {
+                ktracheckbox.setText("Bạn chưa đồng ý nộp phí");
+            }
+
         }
 
     }
 
 
-
-}
